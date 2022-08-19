@@ -33,6 +33,7 @@ body {
 } */
 
 .yellow {
+  padding: 1rem;
   background-color: burlywood;
   height: 100%;
 }

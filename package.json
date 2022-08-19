@@ -8,9 +8,11 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "beautiful-react-hooks": "^3.10.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-resizable": "3.0.4",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.0"
   },
   "devDependencies": {

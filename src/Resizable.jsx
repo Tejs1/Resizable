@@ -1,13 +1,12 @@
 import { ResizableBox } from "react-resizable";
-const Resizable = ({ children }) => {
+const Resizable = ({ children, height, width }) => {
   return (
     <ResizableBox
-      height={300}
-      width={300}
+      height={height}
+      width={width}
       resizeHandles={["s", "e", "w", "n"]}
-      onResizeStop={(e, data) => {
-        console.log(e);
-        console.log(data);
+      onResize={(...data) => {
+        console.log(data[1]);
       }}
     >
       {children}
