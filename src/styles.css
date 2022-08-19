@@ -1,0 +1,85 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body {
+  font-family: system-ui, sans-serif;
+  height: 100vh;
+  width: 100vw;
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: brown;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar {
+  display: flex;
+  flex-direction: row;
+}
+.main {
+  background: coral;
+  display: flex;
+  flex-direction: row;
+}
+
+/* .right-sidebar {
+  background: yellow;
+  grid-column: 2 / 3;
+} */
+
+.yellow {
+  background-color: burlywood;
+  height: 100%;
+}
+.react-resizable {
+  position: relative;
+}
+.react-resizable-handle {
+  display: block;
+  margin: none;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+.react-resizable-handle-s {
+  position: absolute;
+  bottom: 0px;
+  background-color: black;
+  height: 5px;
+  width: 100%;
+  cursor: row-resize;
+}
+.react-resizable-handle-e {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background-color: blue;
+  height: 100%;
+  width: 5px;
+  cursor: col-resize;
+}
+.react-resizable-handle-w {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: chartreuse;
+  height: 100%;
+  width: 5px;
+  cursor: col-resize;
+}
+.react-resizable-handle-n {
+  position: absolute;
+  top: 0px;
+  background-color: cyan;
+  height: 5px;
+  width: 100%;
+  cursor: row-resize;
+}
+
+/* .left-sidebar {
+  background: lightblue;
+  grid-column: 1 / 2;
+} */
