@@ -5,7 +5,7 @@ const Resizable = ({ children }) => {
       height={300}
       width={300}
       resizeHandles={["s", "e", "w", "n"]}
-      onResizeStart={(e, data) => {
+      onResizeStop={(e, data) => {
         console.log(e);
         console.log(data);
       }}
