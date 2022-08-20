@@ -1,32 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useGlobalEvent from "beautiful-react-hooks/useGlobalEvent";
 import "./styles.css";
 // import Resizable from "./Resizable";
 import { ResizableBox } from "react-resizable";
 export default function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [leftFlexGrow, setLeftFlexGrow] = useState("flexGrow");
-  const [rightFlexGrow, setRightFlexGrow] = useState("flexNone");
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [leftWidth, setLeftWidth] = useState(500);
   const [rightWidth, setRightWidth] = useState(windowWidth - leftWidth);
+  const [asideHeight, setAsideHeight] = useState(400);
+  const [articleHeight, setArticleHeight] = useState(
+    windowHeight - asideHeight
+  );
   const handles = ["s", "e", "w", "n"];
 
   const onWindowResize = useGlobalEvent("resize");
   onWindowResize((e) => {
     setWindowWidth(window.innerWidth);
+    setWindowHeight(window.innerHeight);
   });
+  useEffect(() => {
+    setLeftWidth(leftWidth);
+    setRightWidth(windowWidth - leftWidth);
+  }, [windowWidth]);
 
   return (
     <div className="App">
       <section className="sidebar">
         <ResizableBox
-          height={300}
+          height={asideHeight}
           width={leftWidth}
           resizeHandles={handles}
-          className={leftFlexGrow}
-          onResizeStart={() => {
-            setLeftFlexGrow("flexNone");
-            setRightFlexGrow("flexGrow");
+          onResize={(...data) => {
+            setLeftWidth(data[1].size.width);
+            setRightWidth(windowWidth - data[1].size.width);
+            setAsideHeight(data[1].size.height);
+            setArticleHeight(windowHeight - data[1].size.height);
           }}
         >
           <aside className="yellow">
@@ -35,16 +44,14 @@ export default function App() {
           </aside>
         </ResizableBox>
         <ResizableBox
-          height={300}
+          height={asideHeight}
           width={rightWidth}
           resizeHandles={handles}
-          className={rightFlexGrow}
-          onResizeStart={(...data) => {
-            setLeftFlexGrow("flexGrow");
-            setRightFlexGrow("flexNone");
-          }}
           onResize={(...data) => {
-            console.log(data[1]);
+            setLeftWidth(windowWidth - data[1].size.width);
+            setRightWidth(data[1].size.width);
+            setAsideHeight(data[1].size.height);
+            setArticleHeight(windowHeight - data[1].size.height);
           }}
         >
           <aside className="yellow">
@@ -55,7 +62,15 @@ export default function App() {
       </section>
 
       <section className="main">
-        <ResizableBox height={600} width={windowWidth} resizeHandles={handles}>
+        <ResizableBox
+          height={articleHeight}
+          width={windowWidth}
+          resizeHandles={handles}
+          onResize={(...data) => {
+            setArticleHeight(data[1].size.height);
+            setAsideHeight(windowHeight - data[1].size.height);
+          }}
+        >
           <article className="yellow">
             <h2>Content</h2>
             <p contentEditable={true}></p>
