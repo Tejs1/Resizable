@@ -9,6 +9,7 @@ import { config } from "./config";
 const firebaseApp = initializeApp(config.firebase);
 const firestore = getFirestore(firebaseApp);
 const fieldsCol = collection(firestore, "fields");
+
 export default function App() {
   const margin = 3 * 16;
   const [windowWidth, setWindowWidth] = useState(window.innerWidth - margin);
