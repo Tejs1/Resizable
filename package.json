@@ -9,6 +9,7 @@
   "main": "src/index.js",
   "dependencies": {
     "beautiful-react-hooks": "^3.10.0",
+    "firebase": "^9.9.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-resizable": "3.0.4",
