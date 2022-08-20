@@ -1,33 +1,44 @@
 import { useState, useEffect } from "react";
 import useGlobalEvent from "beautiful-react-hooks/useGlobalEvent";
 import "./styles.css";
-// import Resizable from "./Resizable";
 import { ResizableBox } from "react-resizable";
+import Content from "./Content";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection } from "firebase/firestore";
+import { config } from "./config";
+const firebaseApp = initializeApp(config.firebase);
+const firestore = getFirestore(firebaseApp);
+const fieldsCol = collection(firestore, "fields");
 export default function App() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const margin = 3 * 16;
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth - margin);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight - margin);
   const [leftWidth, setLeftWidth] = useState(500);
   const [rightWidth, setRightWidth] = useState(windowWidth - leftWidth);
+  const [articleWidth, setArticleWidth] = useState(windowWidth);
   const [asideHeight, setAsideHeight] = useState(400);
   const [articleHeight, setArticleHeight] = useState(
     windowHeight - asideHeight
   );
+
   const handles = ["s", "e", "w", "n"];
 
   const onWindowResize = useGlobalEvent("resize");
   onWindowResize((e) => {
-    setWindowWidth(window.innerWidth);
+    setWindowWidth(window.innerWidth - 3 * margin);
     setWindowHeight(window.innerHeight);
   });
   useEffect(() => {
     setLeftWidth(leftWidth);
     setRightWidth(windowWidth - leftWidth);
+    setArticleWidth(windowWidth);
   }, [windowWidth]);
 
   return (
     <div className="App">
       <section className="sidebar">
         <ResizableBox
+          className="left"
           height={asideHeight}
           width={leftWidth}
           resizeHandles={handles}
@@ -40,10 +51,11 @@ export default function App() {
         >
           <aside className="yellow">
             <h1>Aside Left</h1>
-            <p contentEditable={true}></p>
+            <Content name={"leftTextarea"} id={"0"} fieldsCol={fieldsCol} />
           </aside>
         </ResizableBox>
         <ResizableBox
+          className="right"
           height={asideHeight}
           width={rightWidth}
           resizeHandles={handles}
@@ -56,24 +68,26 @@ export default function App() {
         >
           <aside className="yellow">
             <h2>Aside right</h2>
-            <p contentEditable={true}></p>
+            <Content name={"rightTextarea"} id={"1"} fieldsCol={fieldsCol} />
           </aside>
         </ResizableBox>
       </section>
 
       <section className="main">
         <ResizableBox
+          className="bottom"
           height={articleHeight}
-          width={windowWidth}
+          width={articleWidth}
           resizeHandles={handles}
           onResize={(...data) => {
+            setArticleWidth(data[1].size.width);
             setArticleHeight(data[1].size.height);
             setAsideHeight(windowHeight - data[1].size.height);
           }}
         >
           <article className="yellow">
             <h2>Content</h2>
-            <p contentEditable={true}></p>
+            <Content name={"bottomTextarea"} id={"2"} fieldsCol={fieldsCol} />
           </article>
         </ResizableBox>
       </section>

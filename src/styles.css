@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  font-family: system-ui, sans-serif;
+  font-family: sans-serif;
   height: 100vh;
   width: 100vw;
 }
@@ -22,9 +22,12 @@ body {
   flex-direction: row;
 }
 .main {
+  width: 100vw;
   background: coral;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 /* .right-sidebar {
@@ -39,6 +42,7 @@ body {
 }
 .react-resizable {
   position: relative;
+  margin: auto;
 }
 .react-resizable-handle {
   display: block;
@@ -85,11 +89,20 @@ body {
   background: lightblue;
   grid-column: 1 / 2;
 } */
-p {
-  height: 90%;
+.textarea {
+  position: relative;
+  height: calc(100% - 6rem);
   width: 90%;
   border: 1px solid red;
   font-size: 1.5rem;
+}
+.textarea textarea {
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  resize: none;
+  font-size: 1.5rem;
+  padding: 1rem;
 }
 aside,
 article {
@@ -108,4 +121,24 @@ article p {
 }
 .flexNone {
   flex-grow: unset;
+}
+.left,
+.right {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+button {
+  padding: 0.3rem 0.6rem;
+  margin-left: 1rem;
+}
+.count {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+}
+.wrapper {
+  margin: auto;
 }
